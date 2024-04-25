@@ -12,6 +12,9 @@ namespace The_Cost_Of_Travel
 {
     public partial class Form1 : Form
     {
+        private bool dayAndNightTem = true;
+        private Image sunImage = Image.FromFile(@"C:\Users\38067\Documents\GitHub\The-Cost-Of-Travel\The Cost Of Travel\images\sun.png");
+        private Image moonImage = Image.FromFile(@"C:\Users\38067\Documents\GitHub\The-Cost-Of-Travel\The Cost Of Travel\images\moon.png");
         public Form1()
         {
             InitializeComponent();
@@ -26,17 +29,41 @@ namespace The_Cost_Of_Travel
                 string commaAndPeriod3 = textBox3.Text.Replace('.',',');
                 if (double.TryParse(commaAndPeriod, out double distance) && double.TryParse(commaAndPeriod2, out double middleFuelOut) && double.TryParse(commaAndPeriod3, out double priceFuelBy1L))
                 {
-                    double howNeedAllFuel = (distance / 100) * middleFuelOut;
-                    double priceAllTrabel = howNeedAllFuel * priceFuelBy1L;
+                    if (distance > 0)
+                    {
+                        double howNeedAllFuel = (distance / 100) * middleFuelOut;
+                        double priceAllTrabel = howNeedAllFuel * priceFuelBy1L;
 
-                    textBox6.Text = howNeedAllFuel.ToString("0");
-                    textBox5.Text = priceAllTrabel.ToString("0");
+                        textBox6.Text = howNeedAllFuel.ToString("0");
+                        textBox5.Text = priceAllTrabel.ToString("0");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please enter correct your distance");
+                    }
                 }
             }
             else
             {
                 MessageBox.Show("Please, fill empty fields");
             }
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (dayAndNightTem)
+            {
+                this.BackColor = Color.LightGray;
+
+                button2.Image = moonImage;
+            }
+            else
+            {
+                this.BackColor = Color.LightYellow;
+
+                button2.Image = sunImage;
+            }
+
+            dayAndNightTem = !dayAndNightTem;
         }
     }
 }
